@@ -5,8 +5,7 @@ const ms = require('parse-ms') // npm i parse-ms
 
 module.exports = {
     commands: ['slut'], 
-    description: 'slut For Money', 
-   
+    description: 'Beg For Money', 
 
     callback: async (message, args) => {
 
@@ -15,19 +14,20 @@ module.exports = {
             return Math.floor(Math.random() * (max - min) ) + min
         }
 
-        const timeout = 300000 // 1 Min In MiliSecond
-        const amount = Math.floor(Math.random() * 250) + 100  // max and min
+        const timeout = 60000 // 1 Min In MiliSecond
+        const amount = Math.floor(Math.random() * 200) + 100  // max and min
 
 
 
 
         let actns = [ 
-            'You were fined <a:coinsss:999019242345218068>',
-
+            'ti hanno scoperto mentre ti prostituivi con Riccardo e ti hanno fatto una multa di',
+            'Hai quasi 1 milione di punti maestria? Il magister bestemmia e ti ruba',
             ]
     
             let actps = [
-                'You whip it out, and manage to rake in <a:coinsss:999019242345218068>',
+                'dopo 4 ore sulla tangenziale nessuno di ha beccato, guadagnando un totale di',
+                'La riot ti assume e decidi di buffare brand, Il magister ti dona',
     
             ]
             const actn = Math.floor(Math.random() * actns.length)
@@ -46,12 +46,12 @@ module.exports = {
             const timeleft = ms(timeout - (Date.now() - begtime))
 
             const embed = new MessageEmbed()
-            .setAuthor(`${user.user.username} `, user.user.displayAvatarURL({ dynamic: true }))
+            .setAuthor(`${user.user.username} Begged`, user.user.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
-            .setColor('000000')
+            .setColor('RANDOM')
             .setDescription(`
-            You cannot be a slut for ${timeleft.minutes}m ${timeleft.seconds}s 
-
+Already Begged, Beg Again In **${timeleft.seconds}**
+Default CoolDown Is **1 Minutes**
             `)
             message.channel.send(embed)
         } else {
@@ -61,46 +61,24 @@ module.exports = {
                
                 db.add(`money_${user.id}`, amount)
                 const embed1 = new MessageEmbed()
-                .setAuthor(`${user.user.username} `, user.user.displayAvatarURL({ dynamic: true }))
+                .setAuthor(`${user.user.username} Begged`, user.user.displayAvatarURL({ dynamic: true }))
                 .setTimestamp()
-                .setColor('#1DB231')
+                .setColor('RANDOM')
                 .setDescription(`**${actps[actp]}** **$${amount}** 
                 `)
                 message.channel.send(embed1)
                 db.set(`slut-time_${user.id}`, Date.now())
-                let bal = await db.fetch(`money_${user.id}`)
-        if(bal === null) bal = 0 
-
-        let bank = await db.fetch(`bank_${user.id}`) 
-        if(bank === null) bank = 0 
-
-        let tot = await db.fetch(`total_${user.id}`)
-        tot = bank+bal
-
-
-        let totale = db.set(`total_${user.id}`, tot)
 
         } else if(final === 'Failed') {
             db.subtract(`money_${user.id}`, amount)
                 const embed1 = new MessageEmbed()
-                .setAuthor(`${user.user.username} `, user.user.displayAvatarURL({ dynamic: true }))
+                .setAuthor(`${user.user.username} Begged`, user.user.displayAvatarURL({ dynamic: true }))
                 .setTimestamp()
-                .setColor('#B83A0A')
+                .setColor('RANDOM')
                 .setDescription(`**${actns[actn]}** **$${amount}** 
                 `)
                 message.channel.send(embed1)
                 db.set(`slut-time_${user.id}`, Date.now())
-                let bal = await db.fetch(`money_${user.id}`)
-        if(bal === null) bal = 0 
-
-        let bank = await db.fetch(`bank_${user.id}`) 
-        if(bank === null) bank = 0 
-
-        let tot = await db.fetch(`total_${user.id}`)
-        tot = bank+bal
-
-
-        let totale = db.set(`total_${user.id}`, tot)
         }
     }
     }}

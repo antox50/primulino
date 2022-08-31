@@ -7,37 +7,25 @@ module.exports = {
     permissions: 'ADMINISTRATOR', // You Can Keep Any Permission
     permissionError: 'You Cant Remove Money', // Optional
 
-    callback : async (message, args) => {
+    callback :(message, args) => {
 
         const user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-        if(!user) return message.reply('You have to specify a member') // if No User Is Mentioned(Using ID/Ping)
-        let totalo = db.get(`total_${user.id}`)
+        if(!user) return message.reply('Whom You Want Remove Money From?') // if No User Is Mentioned(Using ID/Ping)
+         
         const money = args[1]
-        if(!money) return message.reply('How much $ you want to remove?')
-        if(isNaN(parseInt(args[1]))) return message.reply(`${money} isn't a number`)
-        if(money>totalo) return message.reply(`you can't remove all those money`)
+        if(!money) return message.reply('How Much **$** You Want To Remove?')
+        if(isNaN(parseInt(args[1]))) return message.reply(`**${money}** Isn't A Number`)
 
         db.subtract(`money_${user.id}`, money) // Same As balance.js // `bank_${user.id}` Keep This If You Want To Add To Bank
-        let tuamadre = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(money)
+
         const embed = new MessageEmbed()
-        .setAuthor(`${user.user.username} Removed money`, user.user.displayAvatarURL({ dynamic: true }))
+        .setAuthor(`${user.user.username} Removed Money`, user.user.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
-        .setColor('000000')
+        .setColor('RANDOM')
         .setDescription(`
-Removed **${tuamadre}** From <@${user.id}>
+Removed **$${money}** From <@${user.id}>
         `)
-        .addField('Removed by:-', `<@${message.author.id}>`)
+        .addField('Removed By:-', `<@${message.author.id}>`)
         message.channel.send(embed)
-        let bal = await db.fetch(`money_${user.id}`)
-        if(bal === null) bal = 0 
-
-        let bank = await db.fetch(`bank_${user.id}`) 
-        if(bank === null) bank = 0 
-
-        let tot = await db.fetch(`total_${user.id}`)
-        tot = bank+bal
-
-
-        let totale = db.set(`total_${user.id}`, tot)
     }
 }

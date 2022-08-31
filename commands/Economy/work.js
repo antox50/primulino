@@ -1,46 +1,33 @@
-const { MessageEmbed, Guild } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const db = require('quick.db') // npm i quick.db
 const ms = require('parse-ms') // npm i parse-ms
 
 
-
 module.exports = {
     commands: ['work'], 
-    description: 'work For Money', 
+    description: 'Beg For Money', 
 
+    callback: async (message, args) => {
 
-
-    
-    callback: async (message, args, client) => {
-
-        
         const user = message.member
         const random = (min, max) => {
             return Math.floor(Math.random() * (max - min) ) + min
         }
 
-        const timeout = 300000 // 1 Min In MiliSecond
+        const timeout = 60000 // 1 Min In MiliSecond
         const amount = Math.floor(Math.random() * 200) + 100  // max and min
 
 
 
 
         let acts = [ // Find More Names In Description
-            ' You cleaned God Arean shoe, she pays you <a:coinsss:999019242345218068> ',
-            'You made some coffee for Mistress Emily, she give you a small tip. <a:coinsss:999019242345218068> ',
-            'You cleaned God Arean bathroom, she paid you <a:coinsss:999019242345218068>' ,
-            'You help Antox clean God Arean bedroom and he gives you <a:coinsss:999019242345218068>',
-            'You helped Goddess Polina, she pays you <a:coinsss:999019242345218068>',
-            'God Arean slapped you, you earned <a:coinsss:999019242345218068>',
+            'Sei andato 10/0 con yasuo e hai vinto il game senza mai morire e il tuo jngler ti ha dato',
+            'Sei andato 0/10 con yasuo quindi @rig è fiero di te e ti ha dato',
+            'Hai stuprato una bambina? @492382616922619935 ti sente e decide di darti',
         ]
         
         const act = Math.floor(Math.random() * acts.length) // To Get Random Name
         
-
- 
-        
-        const colo = Math.floor(Math.random() * acts.length)
-
 
         let options = [
             'Success',
@@ -53,11 +40,12 @@ module.exports = {
             const timeleft = ms(timeout - (Date.now() - begtime))
 
             const embed = new MessageEmbed()
-            .setAuthor(`${user.user.username}`, user.user.displayAvatarURL({ dynamic: true }))
+            .setAuthor(`${user.user.username} Begged`, user.user.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
-            .setColor('000000')
+            .setColor('RANDOM')
             .setDescription(`
-            You cannot work for ${timeleft.minutes}m ${timeleft.seconds}s
+Already Begged, Beg Again In **${timeleft.seconds}**
+Default CoolDown Is **1 Minutes**
             `)
             message.channel.send(embed)
         } else {
@@ -69,37 +57,10 @@ module.exports = {
                 const embed1 = new MessageEmbed()
                 .setAuthor(`${user.user.username} Begged`, user.user.displayAvatarURL({ dynamic: true }))
                 .setTimestamp()
-                .setColor('#1DB231')
-                .setDescription(`${acts[act]} $${amount}
+                .setColor('RANDOM')
+                .setDescription(`**${acts[act]}** **$${amount}** 
                 `)
                 message.channel.send(embed1)
                 db.set(`work-time_${user.id}`, Date.now())
-
-
-
-
-                
-
         }}
-        let bal = await db.fetch(`money_${user.id}`)
-        if(bal === null) bal = 0 
-
-        let bank = await db.fetch(`bank_${user.id}`) 
-        if(bank === null) bank = 0 
-
-        let tot = await db.fetch(`total_${user.id}`)
-        tot = bank+bal
-
-
-        let totale = db.set(`total_${user.id}`, tot)
-
-
-
-      
-      
-    }
-
-    
-
-
-}
+    }}

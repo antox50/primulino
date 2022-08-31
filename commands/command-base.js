@@ -34,7 +34,6 @@ const validatePermissions = (permissions) => {
     'MANAGE_ROLES',
     'MANAGE_WEBHOOKS',
     'MANAGE_EMOJIS',
-   
   ]
 
   for (const permission of permissions) {

@@ -1,9 +1,7 @@
 module.exports ={
-    commands: ['del', 'purge'], // You Can Keep Any Name
-    permissions: 'ADMINISTRATOR', // You Can Keep Any Permission
-    permissionError: 'You Cant Use It', 
+    name: 'purge',
     description: 'Deletes Message', //Optional
-    callback: (message, args) => {
+    execute(message, args) {
         const amount = parseInt(args[0]) + 1;
 
         if (isNaN(amount)) {

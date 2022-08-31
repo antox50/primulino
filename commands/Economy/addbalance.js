@@ -15,7 +15,7 @@ module.exports = {
         const money = args[1]
         if(!money) return message.reply('How Much **$** You Want To Give?')
         if(isNaN(parseInt(args[1]))) return message.reply(`**${money}** Isn't A Number`)
-        
+
         db.add(`money_${user.id}`, money) // Same As balance.js // `bank_${user.id}` Keep This If You Want To Add To Bank
 
         const embed = new MessageEmbed()
@@ -27,20 +27,5 @@ Added **$${money}** To <@${user.id}>
         `)
         .addField('Added By:-', `<@${message.author.id}>`)
         message.channel.send(embed)
-
-
-
-
-        let bal = await db.fetch(`money_${user.id}`)
-    if(bal === null) bal = 0 
-
-    let bank = await db.fetch(`bank_${user.id}`) 
-    if(bank === null) bank = 0 
-
-    let tot = await db.fetch(`total_${user.id}`)
-    tot = bank+bal
-
-
-    let totale = db.set(`total_${user.id}`, tot)
     }
 }

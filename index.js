@@ -1,55 +1,32 @@
 const Discord = require('discord.js');
-const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });;
+const client = new Discord.Client();
 
 client.queue = new Discord.Collection(); // Add This
 
 const { prefix, token } = require('./config.json')
 const welcome = require('./commands/Mod/welcome');
 const loadCommands = require('./commands/load-commands');
-const lb = require('./commands/Economy/lb');
-const lbc = require('./commands/Economy/lbcash');
-const CurrencySystem = require("currency-system");
-const cs = new CurrencySystem;
-cs.connect("mongodb+srv://antox:Nonloso22@cluster0.kyaciah.mongodb.net/?retryWrites=true&w=majority")
-
-
-
-
-
-
-
-
-
 
 
 
 
 client.once('ready', () => {
     console.log('Ready.')
-
-
+    
     setInterval(() => {
         const statuses = [
-            `Arean's server`,
-
+            `Yasuo 0/10`,
+            `Yasuo 10/0`,
 
    
         ]
 
         const status = statuses[Math.floor(Math.random() * statuses.length)]
-        client.user.setActivity(status, { type: "WATCHING"}) // Can Be WATCHING, STREAMING, LISTENING
+        client.user.setActivity(status, { type: "PLAYING"}) // Can Be WATCHING, STREAMING, LISTENING
     }, 10000) // Second You Want to Change Status, This Cahnges Every 2 Seconds
 
     welcome(client)
     loadCommands(client)
-    lb(client)
-    lbc(client)
-
-   
-  
-
-
-
 })
 
 
@@ -62,26 +39,6 @@ client.on('voiceStateUpdate', (old, New) => {
 })
 
 
-const db = require("quick.db");
-const { Database } = require("quickmongo");
-const mongo = new Database("mongodb://localhost/quickmongo");
-
-function importData() {
-    const data = db.all();
-    mongo.import(data).then(() => {
-        console.log("Done!");
-    });    
-}
-
-mongo.on("ready", () => importData());
-
-
-
-
-
-
-
-
 
 
 
@@ -89,4 +46,3 @@ mongo.on("ready", () => importData());
 
 
 client.login(token)
-

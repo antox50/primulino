@@ -51,7 +51,7 @@ module.exports = {
         .setURL(song.url) // URL Of The Song
         .setDescription(`Duration: ${song.duration}`) // Duration Of Music
         .setThumbnail(song.thumbnail)
-        .addField(e, '<a:Next:803138566091309057>') // If The Music Is Playlist or First Music or Other.
+        .addField(e, '👌') // If The Music Is Playlist or First Music or Other.
         .setColor('RANDOM')
         .setTimestamp()
         .setFooter('Song')
